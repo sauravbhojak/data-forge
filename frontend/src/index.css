@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base resets ──────────────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface-900 text-slate-100 antialiased;
+    min-height: 100dvh;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-600 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
+
+  /* Code / pre */
+  pre, code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+}
+
+/* ── Component utilities ─────────────────────────────────────────────────── */
+@layer components {
+  /* Glass card */
+  .glass-card {
+    @apply rounded-xl border border-white/5 bg-surface-800/60 backdrop-blur-sm shadow-dark-card;
+  }
+
+  /* Inner card on dark surface */
+  .inner-card {
+    @apply rounded-lg border border-white/5 bg-surface-900/50 p-4;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-400 to-violet-400 bg-clip-text text-transparent;
+  }
+
+  /* Brand button base */
+  .btn-brand {
+    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold
+           bg-brand-600 text-white shadow-brand-sm transition-all duration-150
+           hover:bg-brand-500 hover:shadow-brand-md active:scale-[0.98]
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
+  }
+
+  /* Secondary / ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium
+           border border-white/10 bg-white/5 text-slate-300 transition-all duration-150
+           hover:bg-white/10 hover:border-white/20 hover:text-white active:scale-[0.98]
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Danger button */
+  .btn-danger {
+    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold
+           bg-red-600/20 text-red-400 border border-red-500/20 transition-all duration-150
+           hover:bg-red-600/30 hover:text-red-300 active:scale-[0.98];
+  }
+
+  /* Form input */
+  .form-input {
+    @apply w-full rounded-lg border border-white/10 bg-surface-900/80 px-3 py-2 text-sm
+           text-slate-200 placeholder-slate-500 outline-none transition-all duration-150
+           focus:border-brand-500/60 focus:ring-2 focus:ring-brand-500/20
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Form select */
+  .form-select {
+    @apply form-input appearance-none cursor-pointer;
+  }
+
+  /* Label */
+  .form-label {
+    @apply block text-xs font-medium text-slate-400 mb-1;
+  }
+
+  /* Section header */
+  .section-header {
+    @apply text-lg font-semibold text-slate-100;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+
+  /* Shimmer skeleton */
+  .skeleton {
+    @apply animate-pulse rounded bg-white/5;
+  }
+
+  /* Status dot */
+  .status-dot {
+    @apply inline-block w-2 h-2 rounded-full;
+  }
+}
+
+/* ── AG Grid dark theme overrides ──────────────────────────────────────────── */
+.ag-theme-alpine-dark {
+  --ag-background-color: #0f172a;
+  --ag-odd-row-background-color: #111827;
+  --ag-header-background-color: #1e293b;
+  --ag-border-color: rgba(255, 255, 255, 0.06);
+  --ag-row-hover-color: rgba(99, 102, 241, 0.08);
+  --ag-selected-row-background-color: rgba(99, 102, 241, 0.15);
+  --ag-font-family: 'Inter', system-ui, sans-serif;
+  --ag-font-size: 13px;
+  --ag-cell-horizontal-padding: 12px;
+  --ag-header-foreground-color: #94a3b8;
+  --ag-foreground-color: #e2e8f0;
+}
+
+/* ── Mermaid diagram container ─────────────────────────────────────────────── */
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Syntax highlighting ────────────────────────────────────────────────────── */
+.sql-code {
+  @apply font-mono text-sm leading-relaxed;
+  color: #e2e8f0;
+}
+
+.sql-keyword {
+  color: #818cf8;
+  font-weight: 600;
+}
+
+.sql-string {
+  color: #86efac;
+}
+
+.sql-number {
+  color: #fb923c;
+}
+
+.sql-comment {
+  color: #475569;
+  font-style: italic;
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────────── */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* ── Page transitions ───────────────────────────────────────────────────────── */
+.page-enter {
+  animation: fadeIn 0.2s ease-out, slideUp 0.2s ease-out;
+}
