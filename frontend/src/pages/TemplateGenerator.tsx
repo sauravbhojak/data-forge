@@ -6,6 +6,7 @@ import { Card, CardBody, CardHeader } from '@/components/ui/Card'
 import { Select } from '@/components/ui/Select'
 import { Button } from '@/components/ui/Button'
 import { Spinner } from '@/components/ui/Spinner'
+import { Modal } from '@/components/ui/Modal'
 import { TemplateCard } from '@/components/TemplateCard'
 import { DataGrid } from '@/components/DataGrid'
 import { MetricsBar } from '@/components/MetricsBar'
@@ -15,7 +16,12 @@ import { usePreview } from '@/hooks/useGeneration'
 import { ROW_COUNT_OPTIONS, formatRowCount } from '@/types'
 import type { DataQualityConfig, TableSchema } from '@/types'
 
-const ROW_OPTIONS = ROW_COUNT_OPTIONS.map((n) => ({ value: String(n), label: `${formatRowCount(n)} rows` }))
+const ROW_OPTIONS = ROW_COUNT_OPTIONS.map((n) => ({ 
+  value: String(n), 
+  label: `${formatRowCount(n)} rows`,
+  disabled: n > 50_000,
+  title: n > 50_000 ? "This is a testing environment, so there is a limit for export." : undefined
+}))
 
 const NULL_RATE_OPTIONS = [
   { value: '0', label: 'No nulls' },
@@ -42,6 +48,7 @@ export default function TemplateGenerator() {
   const navigate = useNavigate()
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null)
   const [rowCount, setRowCount] = useState(1000)
+  const [showLimitModal, setShowLimitModal] = useState(false)
   const [quality, setQuality] = useState<DataQualityConfig>({ null_rate: 0, duplicate_rate: 0, outlier_rate: 0 })
 
   const { data: templates, isLoading: templatesLoading } = useQuery({
@@ -129,6 +136,7 @@ export default function TemplateGenerator() {
                 options={ROW_OPTIONS}
                 value={String(rowCount)}
                 onChange={(e) => setRowCount(Number(e.target.value))}
+                onInfoClick={() => setShowLimitModal(true)}
                 id="row-count-select"
               />
               <Select
@@ -237,6 +245,21 @@ export default function TemplateGenerator() {
           )}
         </div>
       </div>
+
+      <Modal open={showLimitModal} onClose={() => setShowLimitModal(false)} title="Export Limit">
+        <div className="text-slate-300">
+          <p>
+            You are currently using the testing environment. To ensure stability for all users, 
+            exports are limited to a maximum of <strong>50,000 rows</strong>. 
+          </p>
+          <p className="mt-4">
+            If you need to export up to 1,000,000 rows, please deploy the application to your own infrastructure or upgrade to a dedicated plan.
+          </p>
+          <div className="mt-6 flex justify-end">
+            <Button onClick={() => setShowLimitModal(false)}>Got it</Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

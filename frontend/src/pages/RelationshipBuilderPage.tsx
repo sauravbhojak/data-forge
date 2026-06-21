@@ -6,13 +6,19 @@ import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
+import { Modal } from '@/components/ui/Modal'
 import { SchemaBuilder } from '@/components/SchemaBuilder'
 import { DataGrid } from '@/components/DataGrid'
 import { useGenerateRelations } from '@/hooks/useGeneration'
 import type { FieldDefinition, RelationshipDefinition, RelationshipType, TableSchema, TemplateInfo } from '@/types'
 import { ROW_COUNT_OPTIONS, formatRowCount } from '@/types'
 
-const ROW_OPTIONS = ROW_COUNT_OPTIONS.slice(0, 5).map((n) => ({ value: String(n), label: `${formatRowCount(n)} rows` }))
+const ROW_OPTIONS = ROW_COUNT_OPTIONS.map((n) => ({ 
+  value: String(n), 
+  label: `${formatRowCount(n)} rows`,
+  disabled: n > 50_000,
+  title: n > 50_000 ? "This is a testing environment, so there is a limit for export." : undefined
+}))
 
 const REL_TYPE_OPTIONS = [
   { value: 'one_to_many', label: 'One → Many' },
@@ -44,6 +50,7 @@ export default function RelationshipBuilderPage() {
   const [selectedTable, setSelectedTable] = useState<string | null>(tables[0]?.id ?? null)
   const [newRel, setNewRel] = useState<Partial<RelationshipDefinition>>({ relationship_type: 'one_to_many' })
   const [previewTable, setPreviewTable] = useState<string | null>(null)
+  const [showLimitModal, setShowLimitModal] = useState(false)
 
   useEffect(() => {
     const template = location.state?.template as TemplateInfo | undefined
@@ -241,6 +248,7 @@ export default function RelationshipBuilderPage() {
                     options={ROW_OPTIONS}
                     value={String(selectedTableState.rowCount)}
                     onChange={(e) => updateTable(selectedTableState.id, { rowCount: Number(e.target.value) })}
+                    onInfoClick={() => setShowLimitModal(true)}
                     aria-label="Row count"
                   />
                 </div>
@@ -285,6 +293,21 @@ export default function RelationshipBuilderPage() {
           )}
         </div>
       </div>
+
+      <Modal open={showLimitModal} onClose={() => setShowLimitModal(false)} title="Export Limit">
+        <div className="text-slate-300">
+          <p>
+            You are currently using the testing environment. To ensure stability for all users, 
+            exports are limited to a maximum of <strong>50,000 rows</strong>. 
+          </p>
+          <p className="mt-4">
+            If you need to export up to 1,000,000 rows, please deploy the application to your own infrastructure or upgrade to a dedicated plan.
+          </p>
+          <div className="mt-6 flex justify-end">
+            <Button onClick={() => setShowLimitModal(false)}>Got it</Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

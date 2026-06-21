@@ -1,22 +1,35 @@
 import { forwardRef, SelectHTMLAttributes } from 'react'
 import clsx from 'clsx'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Info } from 'lucide-react'
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
   error?: string
-  options: { value: string; label: string }[]
+  options: { value: string; label: string; disabled?: boolean; title?: string }[]
+  onInfoClick?: () => void
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ label, error, options, className, id, ...props }, ref) => {
+  ({ label, error, options, className, id, onInfoClick, ...props }, ref) => {
     const selectId = id ?? label?.toLowerCase().replace(/\s+/g, '-')
     return (
       <div className="flex flex-col gap-1">
         {label && (
-          <label htmlFor={selectId} className="form-label">
-            {label}
-          </label>
+          <div className="flex items-center gap-2">
+            <label htmlFor={selectId} className="form-label mb-0">
+              {label}
+            </label>
+            {onInfoClick && (
+              <button
+                type="button"
+                onClick={onInfoClick}
+                className="text-slate-400 hover:text-brand-400 transition"
+                aria-label={`More information about ${label}`}
+              >
+                <Info className="h-4 w-4" />
+              </button>
+            )}
+          </div>
         )}
         <div className="relative">
           <select
@@ -30,7 +43,12 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             {...props}
           >
             {options.map((opt) => (
-              <option key={opt.value} value={opt.value}>
+              <option 
+                key={opt.value} 
+                value={opt.value} 
+                disabled={opt.disabled}
+                title={opt.title}
+              >
                 {opt.label}
               </option>
             ))}

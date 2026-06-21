@@ -1,16 +1,36 @@
-# DataForge — Smart Test Data Generation Platform
+<div align="center">
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Python-Dark.svg" height="40" alt="Python logo"  />
+  <img width="12" />
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/FastAPI.svg" height="40" alt="FastAPI logo"  />
+  <img width="12" />
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/React-Dark.svg" height="40" alt="React logo"  />
+  <img width="12" />
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/TypeScript.svg" height="40" alt="TypeScript logo"  />
+  <img width="12" />
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/TailwindCSS-Dark.svg" height="40" alt="TailwindCSS logo"  />
+</div>
+
+<h1 align="center">DataForge</h1>
+<h3 align="center">Smart Test Data Generation Platform</h3>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.13-3776AB?style=flat-square&logo=python" />
-  <img src="https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square&logo=fastapi" />
-  <img src="https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react" />
-  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript" />
-  <img src="https://img.shields.io/badge/TailwindCSS-3-06B6D4?style=flat-square&logo=tailwindcss" />
-  <img src="https://img.shields.io/badge/Docker-ready-2496ED?style=flat-square&logo=docker" />
-  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" />
+  <img src="https://img.shields.io/badge/Status-Active_Development-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker" />
+  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" />
 </p>
 
-> **DataForge** is a production-grade, full-stack SaaS platform that generates realistic test datasets for developers, QA engineers, data engineers, and analysts. Generate up to **1,000,000 rows** in CSV, JSON, SQL, and Excel with streaming exports.
+---
+
+**DataForge** is a production-grade, full-stack SaaS platform that generates realistic test datasets for developers, QA engineers, data engineers, and analysts. Generate up to **1,000,000 rows** in CSV, JSON, SQL, and Excel with blazing-fast streaming exports.
+
+---
+
+## 🚧 Status: Currently Working On
+> **Note:** I am currently actively working on this project! My immediate focus includes:
+> - **Scalability Improvements:** Optimizing server-side generation to handle multi-million row datasets even faster.
+> - **New Data Types:** Adding specialized generators for financial, healthcare, and IoT sectors.
+> - **Cloud Deployment:** Refining deployment configurations for Vercel and scalable backend infrastructure.
+> - **UX Polish:** Enhancing data preview controls and user onboarding flows.
 
 ---
 
