@@ -7,7 +7,7 @@ name = "dataforge-backend"
 version = "1.0.0"
 description = "DataForge — Smart Test Data Generation Platform"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 dependencies = [
     "fastapi[standard]>=0.115.0",
     "pydantic>=2.8.0",
