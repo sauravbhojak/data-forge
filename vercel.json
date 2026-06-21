@@ -3,6 +3,10 @@
   "outputDirectory": "frontend/dist",
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": "https://data-forge-8klr.onrender.com/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
