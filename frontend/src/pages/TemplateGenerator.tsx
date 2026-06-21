@@ -65,7 +65,7 @@ export default function TemplateGenerator() {
     if (!t) return null
     return {
       name: t.id,
-      fields: t.fields,
+      fields: t.fields || [],
       row_count: rowCount,
       quality,
     }
@@ -77,7 +77,7 @@ export default function TemplateGenerator() {
     if (!t) return
     const schema: TableSchema = {
       name: t.id,
-      fields: t.fields,
+      fields: t.fields || [],
       row_count: rowCount,
       quality,
     }
